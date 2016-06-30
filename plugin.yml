@@ -1,0 +1,7 @@
+name: FixSprint
+main: FixSprint\Main
+version: 1.0.0b1
+api: 1.12.0
+author: OpenBuild Dev Team
+maincontributor: Efra1in16
+website: http://github.com/OBDevTeam
