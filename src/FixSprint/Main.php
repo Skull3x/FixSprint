@@ -5,9 +5,9 @@ namespace FixSprint;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use pocketmine\event\player\PlayerEvent;
+use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\event\player\PlayerToggleSprintEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 
 class Main extends PluginBase{
