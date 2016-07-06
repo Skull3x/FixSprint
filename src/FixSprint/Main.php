@@ -9,8 +9,10 @@ use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\entity\Entity;
+use pocketmine\event\player\PlayerToggleSprintEvent;
 
-class Main extends PluginBase{
+class Main extends PluginBase implements Listener{
     //Load Plugin when Server runs
     public function onLoad(){
         $this->getLogger()->info("Loading FixSprint");
@@ -22,10 +24,16 @@ class Main extends PluginBase{
     }
     //Fix stop sprint action when a player hit to a other player or entity.
     public function onSprint(PlayerToggleSprintEvent $event){
-        $player->setDataFlag(Entity::DATA_FLAGS, Entity::DATA_FLAG_SPRINTING, true);
+        $player = $event->getPlayer();
+        $entity = $event->getEntity();
+        $cause = $entity->getLastDamageCause();
+        $entity->setDataFlag(Entity::DATA_FLAGS, Entity::DATA_FLAG_SPRINTING, true);
         if($player->isSprinting()){
-            //TODO: Make that the player dont stop sprinting when hit an entity
+            if($event instanceof EntityDamageByEntityEvent){
+                if($cause instanceof Player){
+                    $event->setCancelled(false);
+                }
+            }
         }
     }
 }
-
